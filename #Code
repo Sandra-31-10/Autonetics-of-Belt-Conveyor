@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+import sys
+import time
+import threading
+import logging
+from ev3dev2.motor import MediumMotor, OUTPUT_B
+from ev3dev2.sensor import INPUT_3
+from ev3dev2.sensor.lego import ColorSensor
+from ev3dev2.sensor import INPUT_1
+from ev3dev2.sensor.lego import TouchSensor
+
+defdebug_print(*args, **kwargs):
+    '''print debug message to stderr.
+    This shows up in the output panel in VS code.
+    '''
+    print(*args, **kwargs, file=sys.stderr)
+cs=ColorSensor(INPUT_3);
+ts1=TouchSensor(INPUT_1);
+m=MediumMotor(OUTPUT_B);
+m.run_forever(speed_sp=80);
+
+while True:
+    if ts1.is_pressed:
+m.stop();
+    if ts1.is_pressed:
+m.run_forever(speed_sp=80);
+
+
+    #m.run_forever(speed_sp=80); 
+    if (cs.color>0):
+time.sleep(0.4);
+m.run_forever(speed_sp=0);
+        print(cs.color_name);
+debug_print(cs.color_name);
+time.sleep(3);
+m.run_forever(speed_sp=80);
+time.sleep(2);
+    else:
+        continue;
+debug_print(cs.color_name)
